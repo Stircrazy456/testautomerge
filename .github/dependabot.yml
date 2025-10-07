@@ -1,6 +1,6 @@
 version: 2 
 updates:
-  # 🔄 Keep GitHub Actions dependencies u
+  # 🔄 Keep GitHub Actions dependencies 
   - package-ecosystem: "github-actions"
     directory: "/"  # Location of workflow file
     schedule:
