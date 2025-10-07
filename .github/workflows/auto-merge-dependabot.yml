@@ -21,7 +21,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v4
 
       # ✅ Step 1: Approve the PR automatically
       - name: Auto-approve Dependabot PR
