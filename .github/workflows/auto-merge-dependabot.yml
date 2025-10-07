@@ -27,7 +27,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Enable auto-merge
-        uses: fastify/github-action-merge-dependabot@v3.6.4
+        uses: fastify/github-action-merge-dependabot@v3.11.2
         with: 
           github-token: ${{ secrets.GITHUB_TOKEN }}
           target: minor
