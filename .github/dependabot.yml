@@ -4,7 +4,7 @@ updates:
   - package-ecosystem: "github-actions"
     directory: "/"  # Location of workflow file
     schedule:
-      interval: "weekly"  # Options: "daily", "weekly", "monthly"
+      interval: "weekly"  # Options: "daily", "weekly", 
     open-pull-requests-limit: 10
     commit-message:
       prefix: "actions"
