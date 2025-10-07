@@ -23,19 +23,22 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Enable auto-merge for Dependabot PR
+      # ✅ Step 1: Approve the PR automatically
+      - name: Auto-approve Dependabot PR
+        uses: hmarr/auto-approve-action@v3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      # ✅ Step 2: Enable auto-merge for the current PR
+      - name: Enable auto-merge
         uses: peter-evans/enable-pull-request-automerge@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           merge-method: squash
 
-      - name: Approve Dependabot PR
-        uses: hmarr/auto-approve-action@v4
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Merge the PR automatically
+      # ✅ Step 3: Trigger the merge
+      - name: Merge PR
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh pr merge "$GITHUB_REF_NAME" --auto --squash
+          gh pr merge ${{ github.event.pull_request.number }} --auto --squash -R ${{ github.repository }}
