@@ -1,4 +1,4 @@
-version: 2
+version: 2 
 updates:
   # 🔄 Keep GitHub Actions dependencies updated 
   - package-ecosystem: "github-actions"
