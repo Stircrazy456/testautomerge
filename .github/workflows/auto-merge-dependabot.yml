@@ -30,8 +30,8 @@ jobs:
         uses: fastify/github-action-merge-dependabot@v3.11.2
         with: 
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          target: minor
-          merge-method: rebase      # options: merge, squash, rebase
-          use-github-auto-merge: true
-          approve-only: false
+          target: major
+          merge-method: squash      # options: merge, squash, rebase
+          # use-github-auto-merge: true
+          # approve-only: false
           
