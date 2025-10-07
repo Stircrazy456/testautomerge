@@ -20,7 +20,7 @@ jobs:
           fetch-depth: 0
 
       - name: Auto-approve Dependabot PR
-        uses: hmarr/auto-approve-action@v3
+        uses: hmarr/auto-approve-action@v4
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
