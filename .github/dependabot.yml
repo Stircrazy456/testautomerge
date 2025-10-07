@@ -1,0 +1,11 @@
+version: 2
+updates:
+  # 🔄 Keep GitHub Actions dependencies updated
+  - package-ecosystem: "github-actions"
+    directory: "/"  # Location of workflow files
+    schedule:
+      interval: "weekly"  # Options: "daily", "weekly", "monthly"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+      - "github-actions"
