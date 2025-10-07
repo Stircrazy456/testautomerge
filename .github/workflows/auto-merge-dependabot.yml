@@ -16,29 +16,29 @@ permissions:
 
 jobs:
   auto-merge:
-    if: github.actor == 'dependabot[bot]' # Only Dependabot PRs
+    if: github.actor == 'dependabot[bot]'
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # ✅ Step 1: Approve the PR automatically
+      # ✅ Step 1: Auto-approve Dependabot PR
       - name: Auto-approve Dependabot PR
         uses: hmarr/auto-approve-action@v3
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      # ✅ Step 2: Enable auto-merge for the current PR
+      # ✅ Step 2: Enable auto-merge
       - name: Enable auto-merge
         uses: peter-evans/enable-pull-request-automerge@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           merge-method: squash
 
-      # ✅ Step 3: Trigger the merge
-      - name: Merge PR
+      # ✅ Step 3: Merge Dependabot PR directly by PR number
+      - name: Merge Dependabot PR
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh pr merge ${{ github.event.pull_request.number }} --auto --squash -R ${{ github.repository }}
+          gh pr merge ${{ github.event.pull_request.number }} --squash --auto -R ${{ github.repository }}
