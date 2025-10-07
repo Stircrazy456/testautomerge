@@ -9,36 +9,32 @@ permissions:
   pull-requests: write
 
 jobs:
-  dependabot-auto-merge:
+  auto-merge:
     if: github.actor == 'dependabot[bot]'
     runs-on: ubuntu-latest
 
     steps:
-      # ✅ Step 1: Check out the repository
-      - name: Checkout code
-        uses: actions/checkout@v5
+      - name: Checkout repo
+        uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # ensures full git context
+          fetch-depth: 0
 
-      # ✅ Step 2: Auto-approve Dependabot PR
       - name: Auto-approve Dependabot PR
-        uses: hmarr/auto-approve-action@v4
+        uses: hmarr/auto-approve-action@v3
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      # ✅ Step 3: Enable auto-merge
       - name: Enable auto-merge
         uses: peter-evans/enable-pull-request-automerge@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           merge-method: squash
 
-      # ✅ Step 4: Merge the PR by URL (bulletproof)
-      - name: Merge Dependabot PR
+      - name: Merge PR using PR number (works for Dependabot)
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PR_URL: ${{ github.event.pull_request.html_url }}
         run: |
-          echo "🔁 Attempting to merge Dependabot PR: $PR_URL"
-          gh pr checkout "$PR_URL"
-          gh pr merge "$PR_URL" --squash --auto --admin
+          PR_NUMBER=${{ github.event.pull_request.number }}
+          REPO=${{ github.repository }}
+          echo "Merging Dependabot PR #$PR_NUMBER in $REPO"
+          gh pr merge "$PR_NUMBER" --repo "$REPO" --squash --auto
